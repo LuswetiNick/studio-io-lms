@@ -19,10 +19,6 @@ const AppSidebar = async ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
   const session = await requireUser();
-
-  // if (!session) {
-  //   return redirect("/login");
-  // }
   return (
     <Sidebar collapsible="icon" {...props} className="overflow-hidden">
       <SidebarHeader>
