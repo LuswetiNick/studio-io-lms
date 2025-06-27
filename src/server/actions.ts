@@ -41,7 +41,10 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
             message: "Invalid password",
           };
         default:
-          return { error: err.message };
+          return {
+            status: "error",
+            message: err.message || "Registration failed",
+          };
       }
     }
     return {
@@ -54,13 +57,13 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
 // Login
 export const login = async (values: z.infer<typeof loginSchema>) => {
   const validatedFields = loginSchema.safeParse(values);
+  if (!validatedFields.success) {
+    return {
+      status: "error",
+      message: validatedFields.error.message,
+    };
+  }
   try {
-    if (!validatedFields.success) {
-      return {
-        status: "error",
-        message: validatedFields.error.message,
-      };
-    }
     await auth.api.signInEmail({
       body: {
         email: values.email,
@@ -81,7 +84,10 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
             message: "Invalid email or password",
           };
         default:
-          return { error: err.message };
+          return {
+            status: "error",
+            message: err.message || "Login failed",
+          };
       }
     }
     return {

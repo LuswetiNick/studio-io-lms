@@ -17,7 +17,11 @@ export {
 };
 
 export default arcjet({
-  key: process.env.ARCJET_KEY as string,
+  key:
+    process.env.ARCJET_KEY ||
+    (() => {
+      throw new Error("ARCJET_KEY environment variable is required");
+    })(),
   characteristics: ["fingerprint"],
   rules: [shield({ mode: "LIVE" })],
 });

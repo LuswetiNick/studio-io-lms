@@ -10,7 +10,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    minPasswordLength: 6,
+    minPasswordLength: 8,
   },
   session: {
     expiresIn: 30 * 24 * 60 * 60,
@@ -18,10 +18,20 @@ export const auth = betterAuth({
   socialProviders: {
     google: {
       prompt: "select_account",
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId:
+        process.env.GOOGLE_CLIENT_ID ||
+        (() => {
+          throw new Error("GOOGLE_CLIENT_ID environment variable is required");
+        })(),
+      clientSecret:
+        process.env.GOOGLE_CLIENT_SECRET ||
+        (() => {
+          throw new Error(
+            "GOOGLE_CLIENT_SECRET environment variable is required"
+          );
+        })(),
     },
   },
   plugins: [nextCookies()],
 });
-export type ErrorCode = keyof typeof auth.$ERROR_CODES | "UNKNOWN ";
+export type ErrorCode = keyof typeof auth.$ERROR_CODES | "UNKNOWN";

@@ -44,8 +44,8 @@ const AppSidebar = async ({
       <SidebarFooter>
         <DashboardUser
           user={{
-            name: session.user.name,
-            email: session.user.email,
+            name: session.user.name || "Unknown User",
+            email: session.user.email || "",
             avatar: session.user.image || "",
           }}
         />
