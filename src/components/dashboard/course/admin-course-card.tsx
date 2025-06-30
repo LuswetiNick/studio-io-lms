@@ -60,37 +60,35 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
           {course.status}
         </Badge>
         <div className="absolute top-2 right-2 z-10">
-          <Button variant="secondary" size="icon">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="secondary">
-                  <EllipsisVertical className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
-                  <Link href={`/creator-dashboard/courses/${course.id}/edit`}>
-                    <Pencil className="size-4" />
-                    Edit
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href={`/courses/${course.slug}`}>
-                    <Eye className="size-4" />
-                    Preview
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href={`/creator-dashboard/courses/${course.id}/delete`}>
-                    <Trash2 className="size-4 text-destructive" />
-                    Delete
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Button>
-        </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" variant="secondary">
+                <EllipsisVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link href={`/creator-dashboard/courses/${course.id}/edit`}>
+                  <Pencil className="size-4" />
+                  Edit
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={`/courses/${course.slug}`}>
+                  <Eye className="size-4" />
+                  Preview
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href={`/creator-dashboard/courses/${course.id}/delete`}>
+                  <Trash2 className="size-4 text-destructive" />
+                  Delete
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>{" "}
       </div>
       <CardContent className="p-4 space-y-3">
         <Badge variant="secondary" className="text-xs">

@@ -136,32 +136,37 @@ const CreateCourse = () => {
                     className="w-fit"
                     onClick={() => {
                       const titleValue = form.getValues("title");
+                      if (!titleValue || titleValue.trim() === "") {
+                        toast.error("Please enter a title first");
+                        return;
+                      }
                       const slugValue = slugify(titleValue);
                       form.setValue("slug", slugValue, {
                         shouldValidate: true,
                       });
+                      toast.success("Slug generated successfully");
                     }}
                   >
                     <WandSparkles className="size-4 " /> Generate Slug
-                  </Button>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="subDescription"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Sub Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          className="min-h-[100px] resize-none"
-                          {...field}
-                        />
-                      </FormControl>
+                  </Button>{" "}
+                  <FormField
+                    control={form.control}
+                    name="subDescription"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Sub Description</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            className="min-h-[100px] resize-none"
+                            {...field}
+                          />
+                        </FormControl>
 
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="description"

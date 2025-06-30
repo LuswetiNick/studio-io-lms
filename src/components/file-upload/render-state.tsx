@@ -53,28 +53,32 @@ export const RenderUploadedState = ({
 }) => {
   return (
     <div className="text-center">
+      -{" "}
       <div className="flex items-center mx-auto justify-center size-12 rounded-full bg-success/30 mb-4">
-        <Image
-          src={previewUrl}
-          alt="Preview"
-          fill
-          className="object-contain p-4"
-        />
+        +{" "}
+        <div className="relative flex items-center mx-auto justify-center size-12 rounded-full bg-success/30 mb-4">
+          <Image
+            src={previewUrl}
+            alt="Preview"
+            fill
+            className="object-contain p-4"
+          />{" "}
+        </div>
+        <Button
+          onClick={handleDelete}
+          type="button"
+          size="icon"
+          className={cn("absolute top-4 right-4")}
+          variant="destructive"
+          disabled={isDeleting}
+        >
+          {isDeleting ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Trash2 className="size-4" />
+          )}
+        </Button>
       </div>
-      <Button
-        onClick={handleDelete}
-        type="button"
-        size="icon"
-        className={cn("absolute top-4 right-4")}
-        variant="destructive"
-        disabled={isDeleting}
-      >
-        {isDeleting ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          <Trash2 className="size-4" />
-        )}
-      </Button>
     </div>
   );
 };

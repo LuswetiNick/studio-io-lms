@@ -61,7 +61,8 @@ export async function POST(request: Request) {
 
     const response = { presignedUrl, key: uniqueKey };
     return NextResponse.json(response);
-  } catch {
+  } catch (error) {
+    console.error("Failed to generate presigned URL:", error);
     return NextResponse.json(
       { error: "Failed to generate presigned URL" },
       { status: 500 }

@@ -1,7 +1,7 @@
-'use client';
-import { type JSX } from 'react';
-import { motion, Transition } from 'motion/react';
-import { cn } from '@/lib/utils';
+"use client";
+import { type JSX } from "react";
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
 export type TextShimmerWaveProps = {
   children: string;
@@ -14,12 +14,11 @@ export type TextShimmerWaveProps = {
   spread?: number;
   scaleDistance?: number;
   rotateYDistance?: number;
-  transition?: Transition;
 };
 
 export function TextShimmerWave({
   children,
-  as: Component = 'p',
+  as: Component = "p",
   className,
   duration = 1,
   zDistance = 10,
@@ -28,7 +27,6 @@ export function TextShimmerWave({
   spread = 1,
   scaleDistance = 1.1,
   rotateYDistance = 10,
-  transition,
 }: TextShimmerWaveProps) {
   const MotionComponent = motion.create(
     Component as keyof JSX.IntrinsicElements
@@ -37,27 +35,27 @@ export function TextShimmerWave({
   return (
     <MotionComponent
       className={cn(
-        'relative inline-block [perspective:500px]',
-        '[--base-color:#a1a1aa] [--base-gradient-color:#000]',
-        'dark:[--base-color:#71717a] dark:[--base-gradient-color:#ffffff]',
+        "relative inline-block [perspective:500px]",
+        "[--base-color:#a1a1aa] [--base-gradient-color:#000]",
+        "dark:[--base-color:#71717a] dark:[--base-gradient-color:#ffffff]",
         className
       )}
-      style={{ color: 'var(--base-color)' }}
+      style={{ color: "var(--base-color)" }}
     >
-      {children.split('').map((char, i) => {
+      {children.split("").map((char, i) => {
         const delay = (i * duration * (1 / spread)) / children.length;
 
         return (
           <motion.span
             key={i}
             className={cn(
-              'inline-block whitespace-pre [transform-style:preserve-3d]'
+              "inline-block whitespace-pre [transform-style:preserve-3d]"
             )}
             initial={{
               translateZ: 0,
               scale: 1,
               rotateY: 0,
-              color: 'var(--base-color)',
+              color: "var(--base-color)",
             }}
             animate={{
               translateZ: [0, zDistance, 0],
@@ -66,9 +64,9 @@ export function TextShimmerWave({
               scale: [1, scaleDistance, 1],
               rotateY: [0, rotateYDistance, 0],
               color: [
-                'var(--base-color)',
-                'var(--base-gradient-color)',
-                'var(--base-color)',
+                "var(--base-color)",
+                "var(--base-gradient-color)",
+                "var(--base-color)",
               ],
             }}
             transition={{
@@ -76,8 +74,7 @@ export function TextShimmerWave({
               repeat: Infinity,
               repeatDelay: (children.length * 0.05) / spread,
               delay,
-              ease: 'easeInOut',
-              ...transition,
+              ease: "easeInOut",
             }}
           >
             {char}
