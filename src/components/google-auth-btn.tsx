@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
-import Image from "next/image";
 import { Loader } from "lucide-react";
+import Image from "next/image";
+import { useTransition } from "react";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
 const GoogleAuthBtn = () => {
   const [loading, startTransition] = useTransition();
   const googleSignIn = async () => {
@@ -13,7 +13,7 @@ const GoogleAuthBtn = () => {
       await authClient.signIn.social(
         {
           provider: "google",
-          callbackURL: "/dashboard",
+          callbackURL: "/creator-dashboard",
         },
         {
           onSuccess: () => {

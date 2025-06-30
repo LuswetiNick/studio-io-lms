@@ -17,7 +17,13 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
-import { ChevronsUpDown, CircleUser, LogOut, Settings } from "lucide-react";
+import {
+  ChevronsUpDown,
+  CircleUser,
+  Home,
+  LogOut,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -44,7 +50,10 @@ const DashboardUser = ({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  src={user.avatar ?? `https://avatar.vercel.sh/${user.email}`}
+                  alt={user.name}
+                />
                 <AvatarFallback className="rounded-lg">
                   {user.name?.[0]?.toUpperCase()}
                 </AvatarFallback>
@@ -67,7 +76,12 @@ const DashboardUser = ({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage
+                    src={
+                      user.avatar ?? `https://avatar.vercel.sh/${user.email}`
+                    }
+                    alt={user.name}
+                  />
                   <AvatarFallback className="rounded-lg">
                     {user.name?.[0]?.toUpperCase()}
                   </AvatarFallback>
@@ -81,18 +95,14 @@ const DashboardUser = ({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <CircleUser />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/settings">
-                  <Settings />
-                  Settings
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+
+            <DropdownMenuItem asChild>
+              <Link href="/">
+                <Home />
+                Home
+              </Link>
+            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () =>

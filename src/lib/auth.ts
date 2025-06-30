@@ -2,6 +2,7 @@ import { prisma } from "@/prisma/prisma";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { admin } from "better-auth/plugins";
 
 export const auth = betterAuth({
   appName: "Studio IO",
@@ -32,6 +33,6 @@ export const auth = betterAuth({
         })(),
     },
   },
-  plugins: [nextCookies()],
+  plugins: [nextCookies(), admin()],
 });
 export type ErrorCode = keyof typeof auth.$ERROR_CODES | "UNKNOWN";
