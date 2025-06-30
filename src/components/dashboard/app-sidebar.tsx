@@ -1,4 +1,5 @@
-import { GalleryVerticalEnd, Layers2 } from "lucide-react";
+import requireUser from "@/hooks/require-user";
+import { GalleryVerticalEnd } from "lucide-react";
 import Link from "next/link";
 import {
   Sidebar,
@@ -9,11 +10,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import DashboardUser from "./dashboard-user";
-import requireUser from "@/hooks/require-user";
-import { redirect } from "next/navigation";
+import { NavMain } from "./nav-main";
 
 const AppSidebar = async ({
   ...props
@@ -36,7 +34,9 @@ const AppSidebar = async ({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent></SidebarContent>
+      <SidebarContent>
+        <NavMain />
+      </SidebarContent>
       <SidebarFooter>
         <DashboardUser
           user={{

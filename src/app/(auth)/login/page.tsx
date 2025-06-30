@@ -26,7 +26,7 @@ import GoogleAuthBtn from "@/components/google-auth-btn";
 const Login = () => {
   const { data: session } = authClient.useSession();
   if (session) {
-    return redirect("/dashboard");
+    return redirect("/creator-dashboard");
   }
   const [loading, startTransition] = useTransition();
   const router = useRouter();
@@ -45,7 +45,7 @@ const Login = () => {
         toast.error(result.message);
       } else {
         toast.success(result.message);
-        router.push("/dashboard");
+        router.push("/creator-dashboard");
       }
     });
   };
