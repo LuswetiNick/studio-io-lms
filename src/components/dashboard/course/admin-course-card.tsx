@@ -68,7 +68,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href={`/creator-dashboard/courses/${course.id}/edit`}>
+                <Link href={`/admin/courses/${course.id}/edit`}>
                   <Pencil className="size-4" />
                   Edit
                 </Link>
@@ -81,7 +81,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href={`/creator-dashboard/courses/${course.id}/delete`}>
+                <Link href={`/admin/courses/${course.id}/delete`}>
                   <Trash2 className="size-4 text-destructive" />
                   Delete
                 </Link>
@@ -96,7 +96,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
         </Badge>
         <div className="space-y-2">
           <Link
-            href={`/creator-dashboard/courses/${course.id}/edit`}
+            href={`/admin/courses/${course.id}/edit`}
             className="font-semibold text-lg line-clamp-2 leading-tight hover:underline group-hover:text-primary transition-colors"
           >
             {course.title}
@@ -121,7 +121,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
           </div>
         </div>
         <Button className="w-full" asChild>
-          <Link href={`/creator-dashboard/courses/${course.id}/edit`}>
+          <Link href={`/admin/courses/${course.id}/edit`}>
             Edit Course
             <ArrowRight />
           </Link>

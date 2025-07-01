@@ -1,4 +1,5 @@
 import { adminGetCourse } from "@/app/data/admin/admin-get-course";
+import CourseContentForm from "@/components/dashboard/course/course-content-form";
 import EditCourseForm from "@/components/dashboard/course/edit-course-form";
 import {
   Card,
@@ -33,7 +34,7 @@ const EditRoute = async ({ params }: { params: Params }) => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <EditCourseForm />
+              <EditCourseForm data={course} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -42,10 +43,12 @@ const EditRoute = async ({ params }: { params: Params }) => {
             <CardHeader>
               <CardTitle>Course Content</CardTitle>
               <CardDescription>
-                Fill in the content for your course
+                Update the content for your course
               </CardDescription>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+              <CourseContentForm data={course} />
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>

@@ -173,3 +173,59 @@ export const createCourse = async (
     };
   }
 };
+
+// Edit Course
+export const editCourse = async (
+  values: CourseSchemaType,
+  courseId: string
+): Promise<ApiResponse> => {
+  const user = await requireAdmin();
+  try {
+    const req = await request();
+
+    const decision = await aj.protect(req, {
+      fingerprint: user.user.id as string,
+    });
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
+        return {
+          status: "error",
+          message: "Blocked! Rate limit exceeded",
+        };
+      } else {
+        return {
+          status: "error",
+          message: "You seem like a malicious user. Please contact support.",
+        };
+      }
+    }
+    const validation = courseSchema.safeParse(values);
+    if (!validation.success) {
+      return {
+        status: "error",
+        message: validation.error.message,
+      };
+    }
+
+    await prisma.course.update({
+      where: {
+        id: courseId,
+        userId: user.user.id,
+      },
+      data: {
+        ...validation.data,
+      },
+    });
+
+    return {
+      status: "success",
+      message: "Course edited successfully",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to edit course",
+    };
+  }
+};
