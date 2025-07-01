@@ -74,7 +74,7 @@ const CreateCourse = () => {
       if (result.status === "success") {
         toast.success(result.message);
         form.reset();
-        router.push("/creator-dashboard/courses");
+        router.push("/admin/courses");
       } else if (result.status === "error") {
         toast.error(result.message);
       }
@@ -83,7 +83,7 @@ const CreateCourse = () => {
   return (
     <section className="max-w-screen-xl mx-auto px-4 md:px-8 w-full">
       <Link
-        href="/creator-dashboard/courses"
+        href="/admin/courses"
         className="flex items-center gap-2 text-sm my-6"
       >
         <ArrowLeft className="w-4 h-4" /> Back to Courses
@@ -148,25 +148,25 @@ const CreateCourse = () => {
                     }}
                   >
                     <WandSparkles className="size-4 " /> Generate Slug
-                  </Button>{" "}
-                  <FormField
-                    control={form.control}
-                    name="subDescription"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Sub Description</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            className="min-h-[100px] resize-none"
-                            {...field}
-                          />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  </Button>
                 </div>
+                <FormField
+                  control={form.control}
+                  name="subDescription"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Sub Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          className="min-h-[100px] resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="description"

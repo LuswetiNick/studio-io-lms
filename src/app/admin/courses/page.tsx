@@ -14,7 +14,7 @@ const CoursesPage = async () => {
         </div>
 
         <Button asChild>
-          <Link href="/creator-dashboard/courses/create">
+          <Link href="/admin/courses/create">
             <Plus /> Create
           </Link>
         </Button>
