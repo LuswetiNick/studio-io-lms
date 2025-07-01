@@ -13,6 +13,7 @@ import {
 import { prisma } from "@/prisma/prisma";
 import { request } from "@arcjet/next";
 import { APIError } from "better-auth/api";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -226,6 +227,83 @@ export const editCourse = async (
     return {
       status: "error",
       message: "Failed to edit course",
+    };
+  }
+};
+
+// Reorder Lessons
+export const reorderLessons = async (
+  chapterId: string,
+  lessons: { id: string; position: number }[],
+  courseId: string
+): Promise<ApiResponse> => {
+  await requireAdmin();
+  try {
+    if (!lessons || lessons.length === 0) {
+      return {
+        status: "error",
+        message: "Lessons are required for re-ordering",
+      };
+    }
+    const updates = lessons.map((lesson) =>
+      prisma.lesson.update({
+        where: {
+          id: lesson.id,
+          chapterId: chapterId,
+        },
+        data: {
+          position: lesson.position,
+        },
+      })
+    );
+    await prisma.$transaction(updates);
+    revalidatePath(`/admin/courses/${courseId}/edit`);
+    return {
+      status: "success",
+      message: "Lessons reordered successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to reorder lessons",
+    };
+  }
+};
+
+// Reorder Chapters
+export const reorderChapters = async (
+  courseId: string,
+  chapters: { id: string; position: number }[]
+): Promise<ApiResponse> => {
+  await requireAdmin();
+  try {
+    if (!chapters || chapters.length === 0) {
+      return {
+        status: "error",
+        message: "Chapters are required for re-ordering",
+      };
+    }
+    const updates = chapters.map((chapter) =>
+      prisma.chapter.update({
+        where: {
+          id: chapter.id,
+          courseId: courseId,
+        },
+        data: {
+          position: chapter.position,
+        },
+      })
+    );
+    await prisma.$transaction(updates);
+    revalidatePath(`/admin/courses/${courseId}/edit`);
+    return {
+      status: "success",
+      message: "Chapters reordered successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to reorder chapters",
     };
   }
 };
