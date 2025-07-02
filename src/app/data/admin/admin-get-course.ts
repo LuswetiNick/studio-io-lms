@@ -23,7 +23,7 @@ export async function adminGetCourse(id: string) {
       fileKey: true,
       createdAt: true,
       slug: true,
-      chapters: {
+      chapter: {
         select: {
           id: true,
           title: true,

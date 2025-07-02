@@ -38,6 +38,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "@/server/actions";
+import NewChapterModal from "./new-chapter-modal";
+import NewLessonModal from "./new-lesson-modal";
+import DeleteLesson from "./delete-lesson";
+import DeleteChapter from "./delete-chapter";
 
 interface CourseContentFormProps {
   data: AdminCourseSingleType;
@@ -55,7 +59,7 @@ interface SortableItemProps {
 
 const CourseContentForm = ({ data }: CourseContentFormProps) => {
   const initialItems =
-    data.chapters.map((chapter) => ({
+    data.chapter.map((chapter) => ({
       id: chapter.id,
       title: chapter.title,
       order: chapter.position,
@@ -76,7 +80,7 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
   useEffect(() => {
     setItems((prevItems) => {
       const updatedItems =
-        data.chapters.map((chapter) => ({
+        data.chapter.map((chapter) => ({
           id: chapter.id,
           title: chapter.title,
           order: chapter.position,
@@ -111,7 +115,6 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        {...listeners}
         className={cn("touch-none", className, isDragging ? " z-10" : "")}
       >
         {children(listeners)}
@@ -263,6 +266,7 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between border-b border-border">
           <CardTitle>Course Chapters</CardTitle>
+          <NewChapterModal courseId={data.id} />
         </CardHeader>
         <CardContent className="space-y-4">
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
@@ -278,7 +282,7 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
                       open={item.isOpen}
                       onOpenChange={() => toggleChapter(item.id)}
                     >
-                      <div className="flex items-center justify-between p-3 border-b border-border">
+                      <div className="flex items-center justify-between p-2 border-b border-border">
                         <div className="flex items-center gap-2">
                           <Button size="icon" variant="ghost" {...listeners}>
                             <GripVertical className="size-4" />
@@ -301,12 +305,10 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
                             {item.title}
                           </p>
                         </div>
-                        <Button size="icon" variant="outline">
-                          <Trash2 className="size-4 text-destructive" />
-                        </Button>
+                        <DeleteChapter courseId={data.id} chapterId={item.id} />
                       </div>
                       <CollapsibleContent>
-                        <div className="p-1 border-b border-border">
+                        <div className=" border-b border-border">
                           <SortableContext
                             items={item.lessons.map((lesson) => lesson.id)}
                             strategy={verticalListSortingStrategy}
@@ -335,18 +337,21 @@ const CourseContentForm = ({ data }: CourseContentFormProps) => {
                                         {lesson.title}
                                       </Link>
                                     </div>
-                                    <Button size="icon" variant="outline">
-                                      <Trash2 className="size-4 text-destructive" />
-                                    </Button>
+                                    <DeleteLesson
+                                      chapterId={item.id}
+                                      courseId={data.id}
+                                      lessonId={lesson.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
                             ))}
                           </SortableContext>
-                          <div>
-                            <Button variant="outline" className="w-full">
-                              Create New Lesson
-                            </Button>
+                          <div className="p-1 w-full">
+                            <NewLessonModal
+                              courseId={data.id}
+                              chapterId={item.id}
+                            />
                           </div>
                         </div>
                       </CollapsibleContent>

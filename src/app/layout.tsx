@@ -31,7 +31,12 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
-          <Toaster closeButton position="bottom-center" />
+          <Toaster
+            closeButton
+            position="bottom-center"
+            richColors
+            theme="dark"
+          />
         </ThemeProvider>
       </body>
     </html>

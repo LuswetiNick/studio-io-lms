@@ -99,7 +99,7 @@ model Course {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
-  chapters Chapter[]
+  chapter Chapter[]
 
   @@map("course")
 }

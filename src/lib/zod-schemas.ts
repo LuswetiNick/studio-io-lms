@@ -91,3 +91,36 @@ export const s3UploadSchema = z.object({
 });
 
 export type S3UploadSchemaType = z.infer<typeof s3UploadSchema>;
+
+export const chapterSchema = z.object({
+  name: z.string().min(3, {
+    message: "Chapter name is required",
+  }),
+  courseId: z.string().uuid({
+    message: "Course ID is required",
+  }),
+});
+
+export type ChapterSchemaType = z.infer<typeof chapterSchema>;
+
+export const lessonSchema = z.object({
+  name: z.string().min(3, {
+    message: "Lesson name is required",
+  }),
+  courseId: z.string().uuid({
+    message: "Course ID is required",
+  }),
+  chapterId: z.string().uuid({
+    message: "Chapter ID is required",
+  }),
+  description: z
+    .string()
+    .min(3, {
+      message: "Description must be at least 3 characters long",
+    })
+    .optional(),
+  thumbnailKey: z.string().optional(),
+  videoKey: z.string().optional(),
+});
+
+export type LessonSchemaType = z.infer<typeof lessonSchema>;
