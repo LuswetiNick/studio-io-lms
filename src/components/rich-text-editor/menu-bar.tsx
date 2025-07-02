@@ -31,9 +31,11 @@ interface MenuBarProps {
 const MenuBar = ({ editor }: MenuBarProps) => {
   if (!editor) return null;
   return (
-    <div className="flex flex-wrap items-center gap-2 border border-input bg-card rounded-md">
+    <div className="w-full border border-input bg-card rounded-md rounded-b-none">
       <TooltipProvider>
-        <div className="flex flex-wrap items-center gap-2 p-1">
+        <div className="flex items-center gap-1 p-2 overflow-x-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+          {/* Text formatting group */}
+          <div className="flex items-center gap-1 shrink-0">
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -176,9 +178,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             </TooltipTrigger>
             <TooltipContent>Ordered List</TooltipContent>
           </Tooltip>
-        </div>
-        <Separator className=" mx-2 w-px" orientation="vertical" />
-        <div className="flex flex-wrap items-center gap-2">
+          </div>
+          
+          <Separator className="mx-2 w-px shrink-0" orientation="vertical" />
+          
+          {/* Alignment group */}
+          <div className="flex items-center gap-1 shrink-0">
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -233,37 +238,41 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             </TooltipTrigger>
             <TooltipContent>Right Align</TooltipContent>
           </Tooltip>
-        </div>
-        <Separator className=" mx-2 w-px" orientation="vertical" />
-        <div className="flex flex-wrap items-center gap-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                type="button"
-                size="sm"
-                variant="ghost"
-                onClick={() => editor.chain().focus().undo().run()}
-                disabled={!editor.can().undo()}
-              >
-                <Undo />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Undo</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                type="button"
-                size="sm"
-                variant="ghost"
-                onClick={() => editor.chain().focus().redo().run()}
-                disabled={!editor.can().redo()}
-              >
-                <Redo />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Redo</TooltipContent>
-          </Tooltip>
+          </div>
+          
+          <Separator className="mx-2 w-px shrink-0" orientation="vertical" />
+          
+          {/* Action group */}
+          <div className="flex items-center gap-1 shrink-0">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().undo().run()}
+                  disabled={!editor.can().undo()}
+                >
+                  <Undo />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Undo</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().redo().run()}
+                  disabled={!editor.can().redo()}
+                >
+                  <Redo />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Redo</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </TooltipProvider>
     </div>

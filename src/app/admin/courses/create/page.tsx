@@ -309,6 +309,7 @@ const CreateCourse = () => {
                       <FormLabel>Thumbnail</FormLabel>
                       <FormControl>
                         <Uploader
+                          fileTypeAccepted="image"
                           value={field.value}
                           onChange={field.onChange}
                         />

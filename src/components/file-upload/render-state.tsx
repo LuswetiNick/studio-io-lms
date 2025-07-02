@@ -3,6 +3,7 @@ import { Upload, ImageUp, Trash2, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { TextShimmerWave } from "../ui/text-shimmer-wave";
+import { Progress } from "../ui/progress";
 export const RenderEmptyState = ({
   isDragActive,
 }: {
@@ -10,13 +11,8 @@ export const RenderEmptyState = ({
 }) => {
   return (
     <div className="text-center flex flex-col gap-2">
-      <div className="space-y-2">
-        <p className="text-lg font-medium">Drop file here or click to upload</p>
-        <p className="text-sm text-muted-foreground">
-          Support for images (JPG, PNG)
-        </p>
-        <p className="text-xs text-muted-foreground">Maximum file size: 5MB</p>
-      </div>
+      <p className="text-lg font-medium">Drop file here or click to upload</p>
+
       <Button type="button" className="mt-4 bg-transparent" variant="outline">
         <Upload className="h-4 w-4 " />
         Choose File
@@ -45,40 +41,48 @@ export const RenderErrorState = () => {
 export const RenderUploadedState = ({
   previewUrl,
   isDeleting,
+  fileType,
   handleDelete,
 }: {
   previewUrl: string;
   isDeleting: boolean;
+  fileType: "image" | "video";
   handleDelete: () => void;
 }) => {
   return (
-    <div className="text-center">
-      -{" "}
-      <div className="flex items-center mx-auto justify-center size-12 rounded-full bg-success/30 mb-4">
-        +{" "}
-        <div className="relative flex items-center mx-auto justify-center size-12 rounded-full bg-success/30 mb-4">
+    <div className="relative  w-full h-full flex flex-col items-center justify-center">
+      <div className="relative group w-full h-48 flex items-center justify-center mb-4">
+        {fileType === "image" ? (
           <Image
             src={previewUrl}
             alt="Preview"
             fill
-            className="object-contain p-4"
-          />{" "}
-        </div>
-        <Button
-          onClick={handleDelete}
-          type="button"
-          size="icon"
-          className={cn("absolute top-4 right-4")}
-          variant="destructive"
-          disabled={isDeleting}
-        >
-          {isDeleting ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <Trash2 className="size-4" />
-          )}
-        </Button>
+            className="object-contain rounded-md"
+          />
+        ) : (
+          <video 
+            src={previewUrl} 
+            className="w-full h-full object-contain rounded-md"
+            controls
+            preload="metadata"
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+        )}
       </div>
+      <Button
+        onClick={handleDelete}
+        type="button"
+        size="icon"
+        className="absolute top-2 right-2"
+        variant="destructive"
+        disabled={isDeleting}
+      >
+        {isDeleting ? (
+          <Loader2 className="size-4 animate-spin" />
+        ) : (
+          <Trash2 className="size-4" />
+        )}
+      </Button>
     </div>
   );
 };
@@ -92,7 +96,7 @@ export const RenderUploadingState = ({
 }) => {
   return (
     <div className="text-center flex flex-col justify-center items-center">
-      <p>{progress}%</p>
+      <Progress value={progress} className="w-[60%]" />
       <TextShimmerWave className="font-mono text-sm mt-2 truncate" duration={1}>
         {`Uploading ${file.name}...`}
       </TextShimmerWave>

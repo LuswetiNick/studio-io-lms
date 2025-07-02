@@ -285,7 +285,11 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
             <FormItem className="w-full">
               <FormLabel>Thumbnail</FormLabel>
               <FormControl>
-                <Uploader value={field.value} onChange={field.onChange} />
+                <Uploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  fileTypeAccepted="image"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

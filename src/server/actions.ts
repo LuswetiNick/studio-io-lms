@@ -553,10 +553,46 @@ export const deleteChapter = async ({
       message: "Chapter deleted successfully",
     };
   } catch (error) {
-    console.log(error);
     return {
       status: "error",
-      message: "Failed to delete chapter",
+      message: "Failed to delete chapter. Please delete the lesson(s) first.",
     };
   }
 };
+
+// update Lesson
+export async function updateLesson(
+  values: LessonSchemaType,
+  lessonId: string
+): Promise<ApiResponse> {
+  await requireAdmin();
+  try {
+    const validation = lessonSchema.safeParse(values);
+    if (!validation.success) {
+      return {
+        status: "error",
+        message: validation.error.message,
+      };
+    }
+    await prisma.lesson.update({
+      where: {
+        id: lessonId,
+      },
+      data: {
+        title: validation.data.name,
+        description: validation.data.description,
+        videoKey: validation.data.videoKey,
+        thumbnailKey: validation.data.thumbnailKey,
+      },
+    });
+    return {
+      status: "success",
+      message: "Lesson updated successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to update lesson",
+    };
+  }
+}
