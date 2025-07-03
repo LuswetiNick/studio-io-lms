@@ -14,7 +14,7 @@ const RichTextEditor = ({ field }: { field: any }) => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert min-h-[300px] w-full p-4 border border-input border-t-0 rounded-md bg-input/30 focus:outline-none focus:ring-0",
+          "prose prose-lg dark:prose-invert min-h-[300px] w-full max-w-none p-4 border border-input border-t-0 rounded-md bg-input/30 focus:outline-none focus:ring-0 [&_p]:text-sm [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm [&_li]:text-sm [&_blockquote]:text-sm",
       },
     },
     immediatelyRender: false,

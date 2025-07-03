@@ -18,10 +18,11 @@ import {
   EllipsisVertical,
   Eye,
   Pencil,
-  Trash2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import DeleteCourse from "./delete-course";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface AdminCourseCardProps {
   course: AdminCourseType;
@@ -42,7 +43,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
     }
   };
   return (
-    <Card className="group relative overflow-hidden py-0 gap-0">
+    <Card className="group relative overflow-hidden py-0 gap-0 max-w-md">
       <div className="relative">
         <Image
           src={thumbnailUrl}
@@ -81,10 +82,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href={`/admin/courses/${course.id}/delete`}>
-                  <Trash2 className="size-4 text-destructive" />
-                  Delete
-                </Link>
+                <DeleteCourse courseId={course.id} />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -109,13 +107,13 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3 text-primary" />
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               {course.duration} hrs
             </span>
           </div>
           <div className="flex items-center gap-1">
             <Building2 className="h-3 w-3 text-primary" />
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               {course.level}
             </span>
           </div>
@@ -131,3 +129,50 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
   );
 };
 export default AdminCourseCard;
+
+export function AdminCourseCardSkeleton() {
+  return (
+    <Card className="group relative overflow-hidden py-0 gap-0 max-w-md">
+      <div className="relative">
+        <Skeleton className="w-full h-48" />
+        {/* Status badge skeleton */}
+        <div className="absolute top-2 left-2 z-10">
+          <Skeleton className="h-6 w-20 rounded-full" />
+        </div>
+        {/* Dropdown menu skeleton */}
+        <div className="absolute top-2 right-2 z-10">
+          <Skeleton className="h-8 w-8 rounded-md" />
+        </div>
+      </div>
+      <CardContent className="p-4 space-y-3">
+        {/* Category badge skeleton */}
+        <Skeleton className="h-5 w-16 rounded-full" />
+        
+        <div className="space-y-2">
+          {/* Title skeleton */}
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-3/4" />
+          
+          {/* Description skeleton */}
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/3" />
+        </div>
+
+        {/* Duration and level skeleton */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <Skeleton className="h-3 w-3 rounded-full" />
+            <Skeleton className="h-3 w-12" />
+          </div>
+          <div className="flex items-center gap-1">
+            <Skeleton className="h-3 w-3 rounded-full" />
+            <Skeleton className="h-3 w-16" />
+          </div>
+        </div>
+        
+        {/* Button skeleton */}
+        <Skeleton className="h-10 w-full rounded-md" />
+      </CardContent>
+    </Card>
+  );
+}

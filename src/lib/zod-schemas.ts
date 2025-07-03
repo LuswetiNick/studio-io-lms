@@ -55,15 +55,15 @@ export const courseSchema = z.object({
     .min(3, {
       message: "Description is required",
     })
-    .max(500, {
-      message: "Description must be at most 500 characters long",
+    .max(10000, {
+      message: "Description must be at most 10000 characters long",
     }),
   subDescription: z
     .string()
     .min(3, {
       message: "Sub description is required",
     })
-    .max(200, {
+    .max(3000, {
       message: "Sub description must be at most 200 characters long",
     }),
   price: z.coerce.number().min(1, {
