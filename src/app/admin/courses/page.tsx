@@ -42,7 +42,7 @@ async function RenderCourses() {
           href="/admin/courses/create"
         />
       ) : (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.map((course) => (
             <AdminCourseCard key={course.id} course={course} />
           ))}
@@ -54,8 +54,8 @@ async function RenderCourses() {
 
 function AdminCoursesSkeletonLayout() {
   return (
-    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-4">
-      {Array.from({ length: 3 }).map((_, index) => (
+    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {Array.from({ length: 8 }).map((_, index) => (
         <AdminCourseCardSkeleton key={index} />
       ))}
     </div>

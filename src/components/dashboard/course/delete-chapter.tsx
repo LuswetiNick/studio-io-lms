@@ -26,6 +26,13 @@ const DeleteChapter = ({
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
+  function handleOpenChange(open: boolean) {
+    if (!open) {
+      setOpen(false);
+    }
+    setOpen(open);
+  }
+
   async function handleDelete() {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
@@ -47,7 +54,7 @@ const DeleteChapter = ({
     });
   }
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size="icon">
           <Trash2 className="size-4" />

@@ -43,7 +43,7 @@ const AdminCourseCard = ({ course }: AdminCourseCardProps) => {
     }
   };
   return (
-    <Card className="group relative overflow-hidden py-0 gap-0 max-w-md">
+    <Card className="group relative overflow-hidden py-0 gap-0 w-full max-w-sm mx-auto">
       <div className="relative">
         <Image
           src={thumbnailUrl}
@@ -132,7 +132,7 @@ export default AdminCourseCard;
 
 export function AdminCourseCardSkeleton() {
   return (
-    <Card className="group relative overflow-hidden py-0 gap-0 max-w-md">
+    <Card className="group relative overflow-hidden py-0 gap-0 w-full max-w-sm mx-auto">
       <div className="relative">
         <Skeleton className="w-full h-48" />
         {/* Status badge skeleton */}

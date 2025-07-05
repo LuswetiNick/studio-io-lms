@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="w-full py-16 md:py-24 lg:py-32 ">
+    <section className="w-full py-16  ">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <div className="space-y-6">
