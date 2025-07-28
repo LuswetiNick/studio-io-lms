@@ -1,7 +1,7 @@
 "use server";
 
 import requireAdmin from "@/app/data/admin/require-admin";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { auth, ErrorCode } from "@/lib/auth";
 import { ApiResponse } from "@/lib/types";
 import {
@@ -18,23 +18,15 @@ import { prisma } from "@/prisma/prisma";
 import { request } from "@arcjet/next";
 import { APIError } from "better-auth/api";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
 import { z } from "zod";
 
-const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    })
-  )
-  .withRule(
-    fixedWindow({
-      mode: "LIVE",
-      window: "1m",
-      max: 5,
-    })
-  );
+const aj = arcjet.withRule(
+  fixedWindow({
+    mode: "LIVE",
+    window: "1m",
+    max: 5,
+  })
+);
 
 // SignUp
 export const signUp = async (values: z.infer<typeof signUpSchema>) => {
@@ -603,8 +595,25 @@ export const deleteCourse = async ({
 }: {
   courseId: string;
 }): Promise<ApiResponse> => {
-  await requireAdmin();
+  const session = await requireAdmin();
   try {
+    const req = await request();
+    const decision = await aj.protect(req, {
+      fingerprint: session.user.id as string,
+    });
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
+        return {
+          status: "error",
+          message: "Blocked! Rate limit exceeded",
+        };
+      } else {
+        return {
+          status: "error",
+          message: "You seem like a malicious user. Please contact support.",
+        };
+      }
+    }
     await prisma.course.delete({
       where: {
         id: courseId,

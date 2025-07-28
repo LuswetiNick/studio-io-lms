@@ -1,4 +1,5 @@
 import { getSingleCourse } from "@/app/data/course/get-course";
+import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
 import { RenderDescription } from "@/components/rich-text-editor/render-description";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,18 +14,23 @@ import {
   Book,
   CheckCircle,
   ChevronDown,
+  CirclePlay,
   Clock,
   FlameKindling,
   LibraryBig,
   MonitorPlay,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { enrollInCourseAction } from "./actions";
+import { EnrollmentBtn } from "./_components/enrollment-btn";
 
 type Params = Promise<{ slug: string }>;
 
 const CoursePage = async ({ params }: { params: Params }) => {
   const { slug } = await params;
   const course = await getSingleCourse(slug);
+  const isEnrolled = await checkIfCourseBought(course.id);
   const thumbnailUrl = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES}.fly.storage.tigris.dev/${course.fileKey}`;
   return (
     <div className="container p-4 md:px-6 mx-auto">
@@ -209,7 +215,22 @@ const CoursePage = async ({ params }: { params: Params }) => {
                     </li>
                   </ul>
                 </div>
-                <Button className="w-full">Enroll Now!</Button>
+                <form
+                  action={async () => {
+                    "use server";
+                    enrollInCourseAction(course.id);
+                  }}
+                >
+                  {isEnrolled ? (
+                    <Button className="w-full" asChild>
+                      <Link href="/admin" className="flex items-center gap-2">
+                        <CirclePlay className="size-4" /> Watch Now
+                      </Link>
+                    </Button>
+                  ) : (
+                    <EnrollmentBtn courseId={course.id} />
+                  )}
+                </form>
               </CardContent>
             </Card>
           </div>
