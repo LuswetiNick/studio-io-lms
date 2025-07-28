@@ -9,7 +9,9 @@
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@arcjet/inspect": "1.0.0-beta.8",
@@ -55,6 +57,7 @@
     "react-hook-form": "^7.58.1",
     "slugify": "^1.6.6",
     "sonner": "^2.0.5",
+    "stripe": "^18.3.0",
     "tailwind-merge": "^3.3.1",
     "uuid": "^11.1.0",
     "zod": "^3.25.67"
