@@ -3,6 +3,7 @@
 import requireAdmin from "@/app/data/admin/require-admin";
 import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { auth, ErrorCode } from "@/lib/auth";
+import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/types";
 import {
   chapterSchema,
@@ -150,11 +151,19 @@ export const createCourse = async (
         message: validation.error.message,
       };
     }
-
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.description,
+      default_price_data: {
+        currency: "kes",
+        unit_amount: validation.data.price,
+      },
+    });
     await prisma.course.create({
       data: {
         ...validation.data,
         userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
       },
     });
 
