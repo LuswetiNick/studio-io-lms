@@ -16,7 +16,7 @@ const SuccessPayment = () => {
             Congratulations! You now have access to the course.
           </p>
           <Button className="w-full" asChild>
-            <Link href="/admin" className="flex items-center gap-2">
+            <Link href="/dashboard" className="flex items-center gap-2">
               Proceed to Dashboard
               <ArrowRight className="size-4" />
             </Link>

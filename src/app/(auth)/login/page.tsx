@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import GoogleAuthBtn from "@/components/google-auth-btn";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,19 +15,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import Link from "next/link";
-import { useState, useTransition } from "react";
-import { login } from "@/server/actions";
-import { toast } from "sonner";
-import { redirect, useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import GoogleAuthBtn from "@/components/google-auth-btn";
+import { login } from "@/server/actions";
+import { Loader } from "lucide-react";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "sonner";
 const Login = () => {
   const { data: session } = authClient.useSession();
   if (session) {
-    return redirect("/admin");
+    return redirect("/dashboard");
   }
   const [loading, startTransition] = useTransition();
   const router = useRouter();
@@ -45,7 +44,7 @@ const Login = () => {
         toast.error(result.message);
       } else {
         toast.success(result.message);
-        router.push("/admin");
+        router.push("/dashboard");
       }
     });
   };
