@@ -1,19 +1,19 @@
-import requireUser from "@/hooks/require-user";
-import { GalleryVerticalEnd } from "lucide-react";
-import Link from "next/link";
+import DashboardUser from "@/components/dashboard/dashboard-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "../ui/sidebar";
-import DashboardUser from "./dashboard-user";
-import { NavMain } from "./nav-main";
+} from "@/components/ui/sidebar";
+import requireUser from "@/hooks/require-user";
+import { GalleryVerticalEnd, LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 
-const AppSidebar = async ({
+const UserAppSidebar = async ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
   const session = await requireUser();
@@ -26,7 +26,7 @@ const AppSidebar = async ({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/admin">
+              <Link href="/dashboard">
                 <GalleryVerticalEnd className="!size-5 text-primary" />
                 <span className="text-base font-semibold">Studio IO</span>
               </Link>
@@ -35,7 +35,18 @@ const AppSidebar = async ({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain />
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/dashboard">
+                  <LayoutDashboard className="!size-5" />
+                  <span>Dashboard</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <DashboardUser
@@ -49,4 +60,4 @@ const AppSidebar = async ({
     </Sidebar>
   );
 };
-export default AppSidebar;
+export default UserAppSidebar;

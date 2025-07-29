@@ -25,6 +25,9 @@ export default createMiddleware(aj, async (request: NextRequest) => {
   if (request.nextUrl.pathname.startsWith("/admin")) {
     return authMiddleware(request);
   }
+  if (request.nextUrl.pathname.startsWith("/dashboard")) {
+    return authMiddleware(request);
+  }
   return NextResponse.next();
 });
 
@@ -41,5 +44,6 @@ export const config = {
   matcher: [
     "/((?!_next/static|_next/image|favicon.ico|api/auth).*)",
     "/admin/:path*",
+    "/dashboard/:path*",
   ], // Specify the routes the middleware applies to
 };

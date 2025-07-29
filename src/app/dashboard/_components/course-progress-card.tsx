@@ -1,25 +1,29 @@
+"use client";
+import { EnrolledCourseType } from "@/app/data/user/get-enrolled-courses";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "../ui/badge";
-import Image from "next/image";
-import { PublicCourseType } from "@/app/data/course/get-all-courses";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useConstructUrl } from "@/hooks/use-construct-url";
-import { Button } from "../ui/button";
+import { useCourseProgress } from "@/hooks/use-course-progress";
+import Image from "next/image";
 import Link from "next/link";
-import { Clock, Building2 } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
 
-interface PublicCourseCardProps {
-  course: PublicCourseType;
+interface EnrolledCourseCardProps {
+  data: EnrolledCourseType;
 }
 
-const PublicCourseCard = ({ course }: PublicCourseCardProps) => {
-  const thumbnailUrl = useConstructUrl(course.fileKey);
+const EnrolledCourseCard = ({ data }: EnrolledCourseCardProps) => {
+  const thumbnailUrl = useConstructUrl(data.course.fileKey);
+  const { totalLessons, completedLessons, progressPercentage } =
+    useCourseProgress({ courseData: data.course as any });
   return (
     <Card className="group relative overflow-hidden py-0 gap-0 w-full max-w-sm ">
       <div className="relative">
         <Image
           src={thumbnailUrl}
-          alt={course.title}
+          alt={data.course.title}
           width={600}
           height={500}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
@@ -27,39 +31,40 @@ const PublicCourseCard = ({ course }: PublicCourseCardProps) => {
       </div>
       <CardContent className=" py-4 space-y-4">
         <Badge variant="secondary" className="text-xs">
-          {course.category}
+          {data.course.category}
         </Badge>
         <div className="space-y-2">
           <p className="font-semibold text-lg line-clamp-2 leading-tight">
-            {course.title}
+            {data.course.title}
           </p>
           <p className="text-sm text-muted-foreground line-clamp-2">
-            {course.subDescription}
+            {data.course.subDescription}
           </p>
         </div>
-        <div className="w-full flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <p className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="size-4 text-primary" /> {course.duration} hrs
-            </p>
-            <p className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Building2 className="size-4 text-primary" /> {course.level}
+        <div className="w-full space-y-2">
+          <div className="w-full flex items-center justify-between">
+            <p className=" text-sm text-muted-foreground">Progress</p>
+            <p className="text-sm text-muted-foreground">
+              {progressPercentage}% |{" "}
+              <span className="text-sm text-muted-foreground">
+                {completedLessons}/{totalLessons} lessons
+              </span>
             </p>
           </div>
-          <p className="text-sm font-semibold">KES {course.price}</p>
+          <Progress value={progressPercentage} />
         </div>
       </CardContent>
       <CardFooter className="mb-4">
         <Button asChild className="w-full">
-          <Link href={`/courses/${course.slug}`}>Learn More</Link>
+          <Link href={`/dashboard/${data.course.slug}`}>Go to Course</Link>
         </Button>
       </CardFooter>
     </Card>
   );
 };
-export default PublicCourseCard;
+export default EnrolledCourseCard;
 
-export function PublicCourseCardSkeleton() {
+export function EnrolledCourseCardSkeleton() {
   return (
     <Card className="group relative overflow-hidden py-0 gap-0 w-full max-w-sm mx-auto">
       <div className="relative">
