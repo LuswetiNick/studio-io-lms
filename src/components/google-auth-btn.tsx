@@ -13,7 +13,7 @@ const GoogleAuthBtn = () => {
       await authClient.signIn.social(
         {
           provider: "google",
-          callbackURL: "/admin",
+          callbackURL: "/dashboard",
         },
         {
           onSuccess: () => {

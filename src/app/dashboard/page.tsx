@@ -1,10 +1,10 @@
 import EmptyState from "@/components/empty-state";
 import PublicCourseCard from "@/components/home/public-course-card";
-import requireUser from "@/hooks/require-user";
 import { redirect } from "next/navigation";
 import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
 import EnrolledCourseCard from "./_components/course-progress-card";
+import requireUser from "../data/user/require-user";
 
 const UserDashboard = async () => {
   const session = await requireUser();
@@ -65,7 +65,7 @@ const UserDashboard = async () => {
             href="/courses"
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             {courses
               .filter(
                 (course) =>

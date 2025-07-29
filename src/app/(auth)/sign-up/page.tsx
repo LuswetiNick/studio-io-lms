@@ -42,7 +42,7 @@ const Signup = () => {
         toast.error(result.message);
       } else {
         toast.success(result.message);
-        router.push("/dashboard");
+        router.push("/login");
       }
     });
   };
