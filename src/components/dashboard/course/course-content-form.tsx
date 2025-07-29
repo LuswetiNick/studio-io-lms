@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-unused-expressions */
+
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -20,6 +22,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
+import { reorderChapters, reorderLessons } from "@/server/actions";
 import {
   arrayMove,
   SortableContext,
@@ -32,16 +35,14 @@ import {
   ChevronRight,
   FileText,
   GripVertical,
-  Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { reorderChapters, reorderLessons } from "@/server/actions";
+import DeleteChapter from "./delete-chapter";
+import DeleteLesson from "./delete-lesson";
 import NewChapterModal from "./new-chapter-modal";
 import NewLessonModal from "./new-lesson-modal";
-import DeleteLesson from "./delete-lesson";
-import DeleteChapter from "./delete-chapter";
 
 interface CourseContentFormProps {
   data: AdminCourseSingleType;

@@ -3,7 +3,6 @@ import EmptyState from "@/components/empty-state";
 import { redirect } from "next/navigation";
 
 interface CourseSlugProps {
-  children: React.ReactNode;
   params: Promise<{ slug: string }>;
 }
 

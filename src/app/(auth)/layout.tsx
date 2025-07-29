@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GalleryVerticalEnd } from "lucide-react";
+import Image from "next/image";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,10 +19,11 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
-        <img
+        <Image
           src="/ol.svg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover  "
+          fill
         />
       </div>
     </div>

@@ -553,7 +553,7 @@ export const deleteChapter = async ({
       status: "success",
       message: "Chapter deleted successfully",
     };
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       message: "Failed to delete chapter. Please delete the lesson(s) first.",
@@ -633,7 +633,7 @@ export const deleteCourse = async ({
       status: "success",
       message: "Course deleted successfully",
     };
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       message: "Failed to delete course",

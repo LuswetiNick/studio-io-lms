@@ -1,9 +1,9 @@
 "use client";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 import { GalleryVerticalEnd, Loader } from "lucide-react";
 import Link from "next/link";
 import { MobileNav } from "./mobile-nav";
-import { authClient } from "@/lib/auth-client";
 import { UserDropdown } from "./user-dropdown";
 
 const navlinks = [

@@ -1,7 +1,4 @@
 "use client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,20 +10,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader, Plus } from "lucide-react";
-import { useState, useTransition } from "react";
-import { chapterSchema, ChapterSchemaType } from "@/lib/zod-schemas";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createChapter } from "@/server/actions";
 import { tryCatch } from "@/hooks/try-catch";
+import { chapterSchema, ChapterSchemaType } from "@/lib/zod-schemas";
+import { createChapter } from "@/server/actions";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader, Plus } from "lucide-react";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const NewChapterModal = ({ courseId }: { courseId: string }) => {

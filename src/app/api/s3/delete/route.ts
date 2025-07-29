@@ -38,7 +38,7 @@ export async function DELETE(request: Request) {
       { message: "File deleted successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to delete file" },
       { status: 500 }

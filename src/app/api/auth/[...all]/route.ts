@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { toNextJsHandler } from "better-auth/next-js";
 
+import arcjet from "@/lib/arcjet";
 import ip from "@arcjet/ip";
 import {
   type ArcjetDecision,
@@ -10,11 +11,9 @@ import {
   type SlidingWindowRateLimitOptions,
   detectBot,
   protectSignup,
-  shield,
   slidingWindow,
 } from "@arcjet/next";
 import { NextRequest } from "next/server";
-import arcjet from "@/lib/arcjet";
 
 const emailOptions = {
   mode: "LIVE", // will block requests. Use "DRY_RUN" to log only

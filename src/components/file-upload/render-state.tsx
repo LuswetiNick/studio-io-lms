@@ -1,9 +1,10 @@
+/* eslint-disable  @typescript-eslint/no-unused-vars */
 import { cn } from "@/lib/utils";
-import { Upload, ImageUp, Trash2, Loader2 } from "lucide-react";
-import { Button } from "../ui/button";
+import { ImageUp, Loader2, Trash2, Upload } from "lucide-react";
 import Image from "next/image";
-import { TextShimmerWave } from "../ui/text-shimmer-wave";
+import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
+import { TextShimmerWave } from "../ui/text-shimmer-wave";
 export const RenderEmptyState = ({
   isDragActive,
 }: {
@@ -60,12 +61,12 @@ export const RenderUploadedState = ({
             className="object-contain rounded-md"
           />
         ) : (
-          <video 
-            src={previewUrl} 
+          <video
+            src={previewUrl}
             className="w-full h-full object-contain rounded-md"
             controls
             preload="metadata"
-            style={{ maxWidth: '100%', maxHeight: '100%' }}
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
           />
         )}
       </div>

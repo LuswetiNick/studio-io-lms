@@ -24,9 +24,6 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 const Login = () => {
   const { data: session } = authClient.useSession();
-  if (session) {
-    return redirect("/dashboard");
-  }
   const [loading, startTransition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -36,6 +33,10 @@ const Login = () => {
       password: "",
     },
   });
+  
+  if (session) {
+    return redirect("/dashboard");
+  }
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     startTransition(async () => {

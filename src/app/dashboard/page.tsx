@@ -1,10 +1,9 @@
+import EmptyState from "@/components/empty-state";
+import PublicCourseCard from "@/components/home/public-course-card";
 import requireUser from "@/hooks/require-user";
 import { redirect } from "next/navigation";
 import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
-import EmptyState from "@/components/empty-state";
-import PublicCourseCard from "@/components/home/public-course-card";
-import Link from "next/link";
 import EnrolledCourseCard from "./_components/course-progress-card";
 
 const UserDashboard = async () => {

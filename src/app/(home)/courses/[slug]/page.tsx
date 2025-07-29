@@ -114,7 +114,7 @@ const CoursePage = async ({ params }: { params: Params }) => {
                     <CollapsibleContent>
                       <div className="bg-card border-t ">
                         <div className="p-4 space-y-4">
-                          {chapter.lessons.map((lesson, index) => (
+                          {chapter.lessons.map((lesson) => (
                             <div
                               key={lesson.id}
                               className="flex items-center gap-2 hover:bg-primary/10 transition-colors duration-200 p-2 rounded-md"

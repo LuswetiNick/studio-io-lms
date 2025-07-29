@@ -13,7 +13,7 @@ const CancelledPayment = () => {
         <CardContent className="text-center space-y-4">
           <h2>Payment Cancelled</h2>
           <p className="text-xs text-muted-foreground tracking-tight text-balance">
-            Don't panic. You will not be charged. Please try again
+            Don&apos;t panic. You will not be charged. Please try again
           </p>
           <Button className="w-full" variant="outline" asChild>
             <Link href="/" className="flex items-center gap-2">

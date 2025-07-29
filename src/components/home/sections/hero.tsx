@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Award, PlayCircle, Search, Star, Users } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { PlayCircle } from "lucide-react";
 import Link from "next/link";
 
 const Hero = () => {
